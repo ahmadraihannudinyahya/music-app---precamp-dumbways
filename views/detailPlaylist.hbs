@@ -1,0 +1,53 @@
+{{>headers}}
+{{>navbar}}
+
+<div class="container mt-2">
+  <h1 class="text-primary">{{playlist.name}}</h1>
+  <div class="container">
+    <button type="button" class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#editPlaylistModal">Edit Playlist</button>
+    <a href="/playlist/delete/{{playlist.id}}"type="button" class="btn btn-outline-danger mb-3">Delete Playlist</a>
+    <div class="row g-1">
+      {{#each musics}}
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="card mx-auto" style="width: 9rem;">
+          <img src="/public/image/defaultImage.png" class="card-img-top img-fluid" alt="Default Image" style="height:8rem;">
+          <div class="card-body">
+            <p class="card-title text-center" style="height: 50px; overflow:hidden">{{this.title}}</p>
+            <a href="/music/detail/{{this.id}}" class="btn btn-primary w-100 mb-2">Play</a>
+            <a href="/playlist/delete/{{../playlist.id}}/music/{{this.id}}" class="btn btn-outline-danger w-100">Delete</a>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="editPlaylistModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="/playlist/edit/{{playlist.id}}">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Playlist</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row g-3 align-items-center mb-2">
+              <div class="col-2">
+                <label for="inputPlaylistName" class="col-form-label">Playlist Name</label>
+              </div>
+              <div class="col-10">
+                <input type="text" id="inputPlaylistName" class="form-control" placeholder="Playlist Name" name="playlistName" value="{{playlist.name}}" required>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{>footer}}

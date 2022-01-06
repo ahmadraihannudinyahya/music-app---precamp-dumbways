@@ -1,0 +1,23 @@
+{{>headers}}
+{{>navbar}}
+
+<div class="container mt-2">
+  <h1 class="text-primary">{{genre.name}}</h1>
+  <div class="container"> 
+    <div class="row g-1">
+      {{#each musics}}
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <div class="card mx-auto" style="width: 9rem;">
+          <img src="/public/image/defaultImage.png" class="card-img-top img-fluid" alt="Default Image" style="height:8rem;">
+          <div class="card-body">
+            <p class="card-title text-center" style="height: 50px; overflow:hidden">{{this.title}}</p>
+            <a href="/music/detail/{{this.id}}" class="btn btn-primary w-100 mb-2">Play</a>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+
+{{>footer}}

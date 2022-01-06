@@ -1,0 +1,56 @@
+{{>headers}}
+{{>navbar}}
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item bg-light bg-gradient active">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-4">
+            <img src="/public/image/illustration.png" class="img-thumbnail mx-auto d-block mt-4 mb-4" alt="Default Image" style="width: 150px;height:200px">
+          </div>
+          <div class="col-8">
+            <h1 class="text-primary text-center">Exprise Your Self With Music App</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{#each topArtis}}
+    <div class="carousel-item bg-light bg-gradient">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-4">
+            <img src="/public/uploads/image/{{this.photo}}" class="img-thumbnail mx-auto d-block mt-4 mb-4" alt="Default Image" style="width: 150px;height:200px">
+          </div>
+          <div class="col-8">
+            <h1 class="text-primary text-center">{{this.name}}</h1>
+            <P class="text-center">{{this.about}}</P>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+
+
+
+<div class="container mt-2">
+  <h1 class="text-primary">Music</h1>
+  <div class="container">
+  <div class="row g-1">
+    {{#each musics}}
+    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+      <div class="card mx-auto" style="width: 9rem;">
+        <img src="/public/image/defaultImage.png" class="card-img-top img-fluid" alt="Default Image" style="height:8rem;">
+        <div class="card-body">
+          <p class="card-title text-center" style="height: 50px; overflow:hidden">{{this.title}}</p>
+          <a href="/music/detail/{{this.id}}" class="btn btn-primary w-100">Play</a>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+</div>
+</div>
+{{>footer}}
+
+

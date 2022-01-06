@@ -1,0 +1,40 @@
+{{>headers}}
+{{>navbar}}
+<div class="container mt-2">
+  <h1 class="text-primary">Register User</h1>
+  <div class="row mt-3">
+    <div class="col-12 col-lg-6">
+      <img src="/public/image/illustration.png" class="img-fluid mt-4" alt="Default Image">
+    </div>
+    <div class="col-12 col-lg-6">
+      <form action="/user/register" method="post">
+        <div class="row g-3 align-items-center mb-2">
+          <div class="col-2">
+            <label for="inputEmail" class="col-form-label">Email</label>
+          </div>
+          <div class="col-10">
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center mb-2">
+          <div class="col-2">
+            <label for="inputPassword" class="col-form-label">Password</label>
+          </div>
+          <div class="col-10">
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          </div>
+        </div>
+
+
+        
+        <div class="row justify-content-center">
+          <div class="col-3">
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{>footer}}

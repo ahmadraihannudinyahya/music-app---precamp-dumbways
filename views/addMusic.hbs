@@ -1,0 +1,160 @@
+{{>headers}}
+{{>navbar}}
+<div class="container mt-2">
+  <h1 class="text-primary">Add Music</h1>
+  <div class="row mt-3">
+    <div class="col-12 col-lg-6">
+      <img src="/public/image/illustration.png" class="img-fluid mt-4" alt="Default Image">
+    </div>
+    <div class="col-12 col-lg-6">
+      <form action="/music/add" method="post" enctype="multipart/form-data">
+        <div class="row g-3 align-items-center mb-2">
+          <div class="col-2">
+            <label for="inputTitle" class="col-form-label">Title</label>
+          </div>
+          <div class="col-10">
+            <input type="text" name="title" id="inputTitle" class="form-control" placeholder="Title" required>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center  mb-2">
+          <div class="col-2">
+            <label for="inputGenre" class="col-form-label">Genre</label>
+          </div>
+          <div class="col-10">
+            <div class="input-group">
+              <select class="form-select" id="inputGenre" name="genre" required>
+                <option selected>Open this select menu</option>
+                {{#each genres}}
+                <option value={{this.id}}>{{this.name}}</option>
+                {{/each}}
+              </select>
+              <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#addGenreModal">Add Genre</button>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3 align-items-center mb-2">
+          <div class="col-2">
+            <label for="inputArtis" class="col-form-label">Artis</label>
+          </div>
+          <div class="col-10">
+            <div class="input-group">
+              <select class="form-select" id="inputArtis" name="artis" required>
+                <option selected>Open this select menu</option>
+                {{#each artis}}
+                <option value={{this.id}}>{{this.name}}</option>
+                {{/each}}
+              </select>
+              <button class="btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#addArtisModal">Add Artis</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center mb-2">
+          <div class="col-2">
+            <label for="inputMusic" class="col-form-label">Music</label>
+          </div>
+          <div class="col-10">
+            <input type="file" class="form-control" id="inputMusic" name="music">
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center mb-2">
+          <div class="col-2">
+            <label for="inputCoverMusic" class="col-form-label">Cover Music</label>
+          </div>
+          <div class="col-10">
+            <input type="file" class="form-control" id="inputCoverMusic" name="cover-music">
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-3">
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="addArtisModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="/artis" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Artis</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row g-3 align-items-center mb-2">
+              <div class="col-2">
+                <label for="inputArtisName" class="col-form-label">Artis</label>
+              </div>
+              <div class="col-10">
+                <input type="text" id="inputArtisName" class="form-control" placeholder="Artis Name" name="artisName" required>
+              </div>
+            </div>
+
+            <div class="row g-3 align-items-center mb-2">
+              <div class="col-2">
+                <label for="inputStartCarrer" class="col-form-label">Start Carrer</label>
+              </div>
+              <div class="col-10">
+                <input type="date" id="inputStartCarrer" class="form-control" name="startCarrer" required>
+              </div>
+            </div>
+
+            <div class="row g-3 align-items-center mb-2">
+              <div class="col-2">
+                <label for="inputArtisimage" class="col-form-label">Artis Image</label>
+              </div>
+              <div class="col-10">
+                <input type="file" class="form-control" id="inputArtisimage" name="imageArtis">
+              </div>
+            </div>
+
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="About Artis" id="aboutArtis" name="aboutArtis"></textarea>
+              <label for="aboutArtis">About Artis</label>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="addGenreModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="post" action="/genre">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Genre</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row g-3 align-items-center mb-2">
+              <div class="col-2">
+                <label for="inputGenreName" class="col-form-label">Genre</label>
+              </div>
+              <div class="col-10">
+                <input type="text" id="inputGenreName" class="form-control" placeholder="Genre Name" name="genreName" required>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{{>footer}}

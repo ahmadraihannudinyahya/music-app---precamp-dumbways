@@ -1,0 +1,101 @@
+{{>headers}}
+{{>navbar}}
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-12 col-lg-6 mb-3">
+      <img src="/public/image/defaultImage.png" class="img-thumbnail mx-auto d-block" alt="Default Image" style="height:400px;width:300px">
+      <h2 class="text-center">{{music.title}}</h2>
+
+      {{#if isLogin}}
+
+      <div class="row">
+        <div class="col-4">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownPlaylistMenu" data-bs-toggle="dropdown" aria-expanded="false">
+              Add To Playlist
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownPlaylistMenu">
+              {{#each playlists}}
+              <li><button class="dropdown-item" data-playlistid="{{this.id}}" data-musicId="{{../music.id}}">{{this.name}}</button></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        <div class="col-2">
+          {{#if like}}
+          <button type="button" class="btn btn-outline-secondary" id="like-button" data-musicId="{{music.id}}"><i class="bi bi-heart-fill"></i></button>
+          {{else}}
+          <button type="button" class="btn btn-outline-secondary" id="like-button" data-musicId="{{music.id}}"><i class="bi bi-heart"></i></button>
+          {{/if}}
+        </div>
+      </div>
+
+      {{/if}}
+      <ul class="list-group list-group-flush mb-2">
+        <li class="list-group-item">Artis : {{music.artis}}</li>
+        <li class="list-group-item">Genre : {{music.genre}}</li>
+      </ul>
+      <audio controls autoplay class="w-100">
+        <source src="/public/uploads/music/{{music.music}}" type="audio/mpeg">
+      </audio>
+    </div>
+    <div class="col-12 col-lg-6">
+      <h2 class="text-primary">For You</h2>
+      <div class="row g-1">
+        {{#each musics}}
+        <div class="col-6 col-sm-4 align-self-center">
+          <div class="card mx-auto" style="width: 9rem;">
+            <img src="/public/image/defaultImage.png" class="card-img-top img-fluid" alt="{{this.title}}" style="height:8rem;">
+            <div class="card-body">
+              <p class="card-title text-center" style="height: 50px; overflow:hidden">{{this.title}}</p>
+              <a href="/music/detail/{{this.id}}" class="btn btn-primary w-100">Play</a>
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.querySelectorAll('.dropdown-item')
+    .forEach(elem => {
+      elem.addEventListener('click',async e =>{
+        e.preventDefault();
+        const playlistId = elem.getAttribute('data-playlistid');
+        const musicId = elem.getAttribute('data-musicId');
+        const data = {
+          playlistId, musicId
+        }
+        const response = await fetch('http://localhost:3000/playlist/music', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        })
+        if(response.status === 200){
+          toast.show();
+        }
+      })
+    })
+  const likeButton = document.querySelector('#like-button');
+  likeButton.addEventListener('click',async e =>{
+    e.preventDefault();
+    const musicId = likeButton.getAttribute('data-musicId')
+    const response = await fetch(`http://localhost:3000/like/music/${musicId}`, {
+      method: 'PUT'
+    })
+    if(response.status === 200){
+      const status = likeButton.querySelector('i').classList.contains('bi-heart-fill');
+      if(status){
+        likeButton.innerHTML = `<i class="bi bi-heart"></i>`;
+      } else{
+        likeButton.innerHTML = `<i class="bi bi-heart-fill"></i>`;
+      }
+    }
+  })
+</script>
+{{>footer}}
