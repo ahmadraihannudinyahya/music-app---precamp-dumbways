@@ -1,6 +1,9 @@
 const multer = require('multer');
 
-module.exports = (imageFile) => {
+module.exports = (fileUpload) => {
+  // fileUpload = field file will upload in array
+
+
   // initialization multer diskstorage
   // make destination file for upload
   const storage = multer.diskStorage({
@@ -13,17 +16,27 @@ module.exports = (imageFile) => {
   }); 
 
   // function for file filter based on extension
-  // const fileFilter = function (req, file, cb) {
-  //   if (file.fieldname === imageFile) {
-  //     if (!file.originalname.match(/\.(mp3|MP3)$/)) {
-  //       req.fileValidationError = {
-  //         message: 'Only image files are allowed!',
-  //       };
-  //       return cb(new Error('Only image files are allowed!'), false);
-  //     }
-  //   }
-  //   cb(null, true);
-  // };
+  const fileFilter = function (req, file, cb) {
+    if (file.fieldname === fileUpload[0]) {
+      // file upload 0 is music
+      if (!file.originalname.match(/\.(mp3|MP3)$/)) {
+        req.fileValidationError = {
+          message: 'Only music files are allowed!',
+        };
+        return cb(new Error('Only music files are allowed!'), false);
+      }
+    }
+    if (file.fieldname === fileUpload[1]) {
+      // file upload 0 is cover image = thumbnail
+      if (!file.originalname.match(/\.(jpg|JPG|JPEG|jpeg)$/)) {
+        req.fileValidationError = {
+          message: 'Only image files are allowed!',
+        };
+        return cb(new Error('Only image files are allowed!'), false);
+      }
+    }
+    cb(null, true);
+  };
 
   const sizeInMB = 10;
   const maxSize = sizeInMB * 1000 * 1000; // Maximum file size in MB
@@ -31,11 +44,11 @@ module.exports = (imageFile) => {
   // generate multer instance for upload include storage, validation and max file size
   const upload = multer({
     storage,
-    // fileFilter,
+    fileFilter,
     limits: {
       fileSize: maxSize,
     },
-  }).fields([{name : imageFile[0], maxCount : 1}, {name : imageFile[1], maxCount : 1}]);
+  }).fields([{name : fileUpload[0], maxCount : 1}, {name : fileUpload[1], maxCount : 1}]);
   
   // middleware handler
   return (req, res, next) => {
